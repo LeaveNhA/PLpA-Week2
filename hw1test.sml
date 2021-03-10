@@ -25,3 +25,15 @@ val test9 = what_month 70 = 3
 val test10 = month_range (31, 34) = [1,2,2,2]
 
 val test11 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
+
+val test12 = is_older((1,2,25),(3,5,26)) = true
+val test13 = is_older((1,2,3),(2,3,4)) = true
+val test14 = is_older((3,5,26),(1,2,25)) = false
+val test15 = is_older((1,2,25),(1,12,29)) = true
+val test16 = is_older((1,2,25),(3,2,28)) = true
+val test17 = is_older((1,2,25),(1,2,27)) = true
+val test18 = is_older((1,2,3),(5,2,3)) = true
+
+val test19 = oldest([(1,2,3),(5,2,3),(7,2,3),(3,2,3)]) = SOME (1,2,3)
+val test20 = oldest([(5,5,2),(5,10,2),(5,2,2),(5,12,2)]) = SOME (5,2,2)
+val test21 = oldest([(5,12,15),(5,12,10),(5,12,1)]) = SOME (5,12,1)

@@ -32,10 +32,13 @@ val range =
     (reverse o range_prime)
 
 fun inc x = x + 1
+
+fun date_of_day(date: int * int * int) =
+    (#1 date) * 365 + (#2 date) * 30 + (#3 date)
 (* ----------------------*)
 
 fun is_older(date1 : int*int*int, date2 : int*int*int) =
-    ((#1 date1 ) - (#1 date2) + (#2 date1) - (#2 date2) + (#3 date1) - (#3 date2)) > 0
+    date_of_day(date1) < date_of_day(date2)
 
 fun dates_in_month(dates : (int * int * int) list, month : int) =
     List.filter (fn ((_, m, _) : (int * int * int)) => m = month) dates
