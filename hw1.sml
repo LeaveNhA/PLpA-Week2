@@ -83,3 +83,7 @@ fun oldest(dates : (int * int * int) list) =
     else SOME (foldl (fn (day1, day2) => ifFn day1 day2 (is_older(day1, day2)))
                      (hd dates)
                      (tl dates))
+
+(* Since they are capable of working with duplicated values in months, they can be replaced with challanges *)
+val dates_in_months_challenge = dates_in_months
+val number_in_months_challenge = number_in_months
