@@ -1,9 +1,9 @@
 (* Programming Languages, Part A, Week 2, Homework *)
 
-(* Write a function is_older that takes two dates and evaluates to true or false. It evaluates to true if the first argument is a date that comes before the second argument.
-(If the two dates are the same, the result is false.) *)
-
 (* Helpers *)
+fun dec n =
+    n - 1
+
 fun checkInTheList(l, n) =
     case l of
         (h::tail) => (h = n) orelse checkInTheList(tail, n)
@@ -57,6 +57,29 @@ fun date_to_string(date : int * int * int) =
     format_date_string(get_nth(months, #2 date), #3 date, #1 date)
 
 fun number_before_reaching_sum(sum : int, numbers : int list) =
-    1 + List.length (List.filter (fn i => i < sum)
-                                 (map ((foldl (op+) 0) o (List.filter (fn n => n > 0)) o (map (fn i => get_nth_prime(numbers, i, 1, ~1))) o (map (inc)) o range)
-                                      (map (fn x => x + 1) (range(List.length numbers - 1)))))
+    List.length (List.filter (fn i => i < sum andalso i <> ~1)
+                             (map ((foldl (op+) 0) o
+                                   (List.filter (fn n => n > 0)) o
+                                   (map (fn i => get_nth_prime(numbers, i, 1, 0))) o
+                                   (map (inc)) o
+                                   range)
+                                  (range(List.length numbers - 1))))
+
+fun what_month(day : int) =
+    number_before_reaching_sum(day, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) + 1
+
+fun month_range(day1 : int, day2 : int) =
+    if day2 < day1 then []
+    else (map (what_month) o map (fn i => i + day1) o range)(day2 - day1)
+
+val ifFn =
+ fn expression1 =>
+    fn expression2 =>
+       fn condition =>
+          if condition then expression1 else expression2
+
+fun oldest(dates : (int * int * int) list) =
+    if null dates then NONE
+    else SOME (foldl (fn (day1, day2) => ifFn day1 day2 (is_older(day1, day2)))
+                     (hd dates)
+                     (tl dates))
