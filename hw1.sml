@@ -1,6 +1,9 @@
 (* Programming Languages, Part A, Week 2, Homework *)
 
 (* Helpers *)
+fun is_leap_year year =
+    ((year mod 4) = 0) andalso (((year mod 100) <> 0) orelse ((year mod 400) = 0))
+
 fun dec n =
     n - 1
 
@@ -90,3 +93,6 @@ fun oldest(dates : (int * int * int) list) =
 (* Since they are capable of working with duplicated values in months, they can be replaced with challanges *)
 val dates_in_months_challenge = dates_in_months
 val number_in_months_challenge = number_in_months
+
+fun reasonable_date((year : int, month : int, day : int)) =
+    (year > 0) andalso (month > 0 andalso month < 13) andalso (day > 0 andalso day < (if is_leap_year year then 29 else 28))
