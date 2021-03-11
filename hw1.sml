@@ -95,4 +95,4 @@ val dates_in_months_challenge = dates_in_months
 val number_in_months_challenge = number_in_months
 
 fun reasonable_date((year : int, month : int, day : int)) =
-    (year > 0) andalso (month > 0 andalso month < 13) andalso (day > 0 andalso day < (if is_leap_year year then 29 else 28))
+    (year > 0) andalso (month > 0 andalso month < 13) andalso (day > 0 andalso day < (if is_leap_year year then 30 else 29))
